@@ -24,6 +24,9 @@ export default function renderBurger(canvas: HTMLElement) {
       ) {
         // child.material.envMap = environmentMap;
         child.material.envMapIntensity = debugObject.envMapIntensity;
+        child.material.needsUpdate = true;
+        child.castShadow = true;
+        child.receiveShadow = true;
       }
     });
   };
@@ -64,6 +67,9 @@ export default function renderBurger(canvas: HTMLElement) {
 
   //   Light
   const directionalLight = new THREE.DirectionalLight();
+  directionalLight.castShadow = true;
+  directionalLight.shadow.mapSize.set(1024, 1024);
+  directionalLight.shadow.camera.far = 15;
   directionalLight.position.set(0.25, 3, -2.25);
   scene.add(directionalLight);
 
@@ -137,12 +143,15 @@ export default function renderBurger(canvas: HTMLElement) {
    */
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
+    antialias: true,
   });
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.shadowMap.enabled = true;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   /**
+   *
    * Animate
    */
   function tick() {
