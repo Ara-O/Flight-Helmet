@@ -49,7 +49,7 @@ export default function renderBurger(canvas: HTMLElement) {
     .name("Env map intensity")
     .onChange(updateAllMaterials);
   //   Models
-  gltfLoader.load("../src/FlightHelmet/FlightHelmet.gltf", (gltf) => {
+  gltfLoader.load("../static/images/FlightHelmet/FlightHelmet.gltf", (gltf) => {
     gltf.scene.scale.set(10, 10, 10);
     gltf.scene.position.set(0, -4, 0);
     gltf.scene.rotation.y = Math.PI * 0.5;
