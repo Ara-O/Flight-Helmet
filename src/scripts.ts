@@ -30,12 +30,12 @@ export default function renderBurger(canvas: HTMLElement) {
 
   //Load environment
   const environmentMap = cubeTextureLoader.load([
-    "../src/assets/px.jpg",
-    "../src/assets/nx.jpg",
-    "../src/assets/py.jpg",
-    "../src/assets/ny.jpg",
-    "../src/assets/pz.jpg",
-    "../src/assets/nz.jpg",
+    "../static/images/px.jpg",
+    "../static/images/nx.jpg",
+    "../static/images/py.jpg",
+    "../static/images/ny.jpg",
+    "../static/images/pz.jpg",
+    "../static/images/nz.jpg",
   ]);
 
   scene.background = environmentMap;
@@ -49,7 +49,7 @@ export default function renderBurger(canvas: HTMLElement) {
     .name("Env map intensity")
     .onChange(updateAllMaterials);
   //   Models
-  gltfLoader.load("../src/assets/FlightHelmet/FlightHelmet.gltf", (gltf) => {
+  gltfLoader.load("../static/images/FlightHelmet/FlightHelmet.gltf", (gltf) => {
     gltf.scene.scale.set(10, 10, 10);
     gltf.scene.position.set(0, -4, 0);
     gltf.scene.rotation.y = Math.PI * 0.5;
@@ -140,11 +140,12 @@ export default function renderBurger(canvas: HTMLElement) {
   });
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
   /**
    * Animate
    */
-  const tick = () => {
+  function tick() {
     // Update controls
     controls.update();
 
@@ -153,7 +154,7 @@ export default function renderBurger(canvas: HTMLElement) {
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);
-  };
+  }
 
   tick();
 }
